@@ -18,7 +18,7 @@ struct ItemRow: View {
         self.item = item
         _draftName = State(initialValue: item.name)   // <-- seed the draft
     }
-
+    
 //    @State var isClicked: Bool = false
 //    @Binding private var newItemName: String = item.name
 
@@ -29,12 +29,15 @@ struct ItemRow: View {
     
     var body: some View {
         HStack(spacing: 12) {
+            let itemCategory = store.categories.first { $0.id == item.category }
+            let tint = itemCategory?.accent ?? .secondary
+            
             Button {
                 //                isClicked.toggle()
                 store.toggleBought(item)
             } label: {
                 Image(systemName: item.isBought ? "circle.fill" : "circle")
-                    .foregroundStyle(.purple)
+                    .foregroundStyle(tint)
                     .font(.system(size: 16))
             }
             .buttonStyle(.plain)
@@ -68,6 +71,7 @@ struct ItemRow: View {
                     store.deleteItem(item)
                 } label: {
                     Image(systemName: "trash")
+                        .foregroundStyle(tint)
                 }
             }
             

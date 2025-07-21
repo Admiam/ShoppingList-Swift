@@ -37,18 +37,25 @@ struct ItemList: View {
                 
                 List {
                     ForEach(store.categories) { category in
-                        Section(header: Text(category.title)) {
-                            let itemsInCat = store.items.filter { $0.category == category.id }
-                            ForEach(itemsInCat) { item in
-                                ItemRow(item: item)
-                                    .environmentObject(store)
+                        let itemsInCat = store.items.filter { $0.category == category.id }
+                        if !itemsInCat.isEmpty {
+                            Section {
+//                            (header: Text(category.title))
+                                ForEach(itemsInCat) { item in
+                                    ItemRow(item: item)
+                                        .environmentObject(store)
+                                }
+                                .onDelete { offsets in
+                                    offsets.map { itemsInCat[$0] }
+                                        .forEach(store.deleteItem)
+                                }
+                            } header: {
+                                Text(category.title)
+                                    .font(.headline)
+                                    .foregroundStyle(category.accent)
                             }
-                            .onDelete { offsets in
-                                offsets.map { itemsInCat[$0] }
-                                    .forEach(store.deleteItem)
-                            }
+                            .listRowBackground(category.accent.opacity(0.1))
                         }
-                        .listRowBackground(Color.clear)
                     }
                 }
                 

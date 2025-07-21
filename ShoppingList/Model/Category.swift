@@ -6,27 +6,31 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct Category: Codable, Identifiable, Hashable {
     var id: String
     var title: String
-//        case other = "Other"
-//        case fish = "Fish"
-//        case meat = "Meat"
-//        case vegetablesFruits = "Vegetables & Fruits"
-//        case dairy = "Dairy"
-//        case sweets = "Sweets"
-//        case freeze = "Frozen Foods"
-//        case bakery = "Bakery"
-//        case drink = "Beverages"
-//        case drugs = "Personal Care"
-//        case cleaning = "Cleaning Supplies"
-//        case cereals = "Cereals & Breakfast"
-//        case canned = "Canned & Jarred Goods"
-//        case pasta = "Dry Goods & Pasta"
-//        case baby = "Baby Products"
-//        case pet = "Pet Supplies"
-//        case household = "Household Items"
-//        case health = "Health & Wellness"
-    
+    var accent: Color {
+        switch id {
+        case "fish":             return .teal
+        case "meat":             return .red
+        case "vegetablesFruits": return .green
+        case "dairy":            return .blue.opacity(0.7)
+        case "sweets":           return .pink
+        case "freeze":           return .cyan
+        case "bakery":           return .orange
+        case "drink":            return .yellow.opacity(0.8)
+        case "drugs":            return .indigo
+        case "cleaning":         return .mint
+        case "cereals":          return .yellow
+        case "canned":           return .gray
+        case "pasta":            return Color("Pasta")      // asset
+        case "baby":             return .purple.opacity(0.7)
+        case "pet":              return .brown
+        case "household":        return .gray.opacity(0.6)
+        case "health":           return .green.opacity(0.7)
+        default:                 return .secondary
+        }
+    }
 }

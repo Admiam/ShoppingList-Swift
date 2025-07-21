@@ -40,6 +40,12 @@ class StoreFile: ObservableObject {
         saveToDisk()
     }
     
+    func rename(_ item: Item, to newName: String) {
+        guard let idx = items.firstIndex(where: { $0.id == item.id }) else { return }
+        items[idx].name = newName
+        saveToDisk()
+    }
+    
     func loadFromDisk() {
         do {
             let data = try Data(contentsOf: fileURL)

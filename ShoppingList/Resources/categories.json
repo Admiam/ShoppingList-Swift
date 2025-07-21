@@ -1,0 +1,20 @@
+[
+  { "id": "other", "title": "Other" },
+  { "id": "fish", "title": "Fish" },
+  { "id": "meat", "title": "Meat" },
+  { "id": "vegetablesFruits", "title": "Vegetables & Fruits" },
+  { "id": "dairy", "title": "Dairy" },
+  { "id": "sweets", "title": "Sweets" },
+  { "id": "freeze", "title": "Frozen Foods" },
+  { "id": "bakery", "title": "Bakery" },
+  { "id": "drink", "title": "Beverages" },
+  { "id": "drugs", "title": "Personal Care" },
+  { "id": "cleaning", "title": "Cleaning Supplies" },
+  { "id": "cereals", "title": "Cereals & Breakfast" },
+  { "id": "canned", "title": "Canned & Jarred Goods" },
+  { "id": "pasta", "title": "Dry Goods & Pasta" },
+  { "id": "baby", "title": "Baby Products" },
+  { "id": "pet", "title": "Pet Supplies" },
+  { "id": "household", "title": "Household Items" },
+  { "id": "health", "title": "Health & Wellness" }
+]

@@ -32,7 +32,7 @@ struct ContentView: View {
             VStack(spacing: 20) {
                 HStack(spacing: 12) {
                     Button {
-                          isClicked.toggle()
+                        isClicked.toggle()
                     } label: {
                         Image(systemName: isClicked ? "circle.fill" : "circle")
                             .foregroundStyle(.purple)
@@ -46,11 +46,11 @@ struct ContentView: View {
                             .textInputAutocapitalization(.none)
                             .font(.system(size: 24, weight: .bold))
                             .foregroundStyle(.purple)
-
+                        
                         Divider()
                             .background(.gray)
                     }
-                Spacer()
+                    Spacer()
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.vertical, 12)

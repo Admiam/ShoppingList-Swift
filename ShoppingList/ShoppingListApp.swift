@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct ShoppingListApp: App {
+    @StateObject private var store = StoreFile()
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+//            ContentView()
+            ItemList()
+                .environmentObject(store)
         }
     }
 }

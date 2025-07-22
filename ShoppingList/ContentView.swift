@@ -4,63 +4,60 @@
 //
 //  Created by Adam Míka on 18.07.2025.
 //
-
 import SwiftUI
 
 struct ContentView: View {
-    @State private var selection: Tab = .featured
-    @State var isClicked: Bool = false
-    @State private var newItemName: String = "Rohlik"
+    @EnvironmentObject var store: StoreFile
+    @State private var showingAdd = false
+    @State private var newTitle = ""
 
-    enum Tab {
-        case featured
-        case list
-    }
-    
-    enum Field { case item }
-        @FocusState private var focusedField: Field?
-    
     var body: some View {
-        ZStack {
-            Color.clear
-                .contentShape(Rectangle())
-                .ignoresSafeArea()
-                .onTapGesture {
-                    focusedField = nil
-//                    UIApplication.shared.endEditing()
-                }
-            VStack(spacing: 20) {
-                HStack(spacing: 12) {
-                    Button {
-                        isClicked.toggle()
-                    } label: {
-                        Image(systemName: isClicked ? "circle.fill" : "circle")
-                            .foregroundStyle(.purple)
-                            .font(.system(size: 22))
+        NavigationView {
+            List {
+                ForEach(store.lists) { list in
+                    NavigationLink(list.title) {
+                        ItemList(list: list)
                     }
-                    .buttonStyle(.plain)
-                    VStack(spacing: 4){
-                        TextField("Item", text: $newItemName)
-                            .focused($focusedField, equals: .item)
-                            .disableAutocorrection(true)
+                }
+                .onDelete { offsets in
+                    offsets.map { store.lists[$0] }.forEach(store.deleteList)
+                }
+            }
+            .navigationTitle("My Shopping Lists")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button { showingAdd = true } label: { Image(systemName: "plus") }
+                }
+            }
+            .sheet(isPresented: $showingAdd) {
+                NavigationView {
+                    Form {
+                        TextField("List title", text: $newTitle)
+                            .autocorrectionDisabled(true)
                             .textInputAutocapitalization(.none)
-                            .font(.system(size: 24, weight: .bold))
-                            .foregroundStyle(.purple)
-                        
-                        Divider()
-                            .background(.gray)
                     }
-                    Spacer()
+                    .navigationTitle("New List")
+                    .toolbar {
+                        ToolbarItem(placement: .confirmationAction) {
+                            Button("Create") {
+                                guard !newTitle.isEmpty else { return }
+                                store.addList(title: newTitle)
+                                newTitle = ""
+                                showingAdd = false
+                            }
+                        }
+                        ToolbarItem(placement: .cancellationAction) {
+                            Button("Cancel", role: .cancel) { showingAdd = false }
+                        }
+                    }
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.vertical, 12)
-                .padding(.horizontal, 36)
-                .contentShape(Rectangle())
             }
         }
     }
 }
 
 #Preview {
+    let store = StoreFile()
     ContentView()
+        .environmentObject(store)
 }

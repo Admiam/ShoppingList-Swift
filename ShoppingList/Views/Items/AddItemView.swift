@@ -9,6 +9,7 @@ import SwiftUI
 struct AddItemView: View {
     @EnvironmentObject var store: StoreFile
     @Environment(\.dismiss) var dismiss
+    var list: ShoppingList
     @State private var name = ""
     @State private var selectedCategory: Category?
     
@@ -36,7 +37,7 @@ struct AddItemView: View {
                             !name.trimmingCharacters(in: .whitespaces).isEmpty
                         else { return }
                         
-                        store.addItem(name, to: cat.id)
+                        store.addItem(name, to: list, in: cat.id)
                         dismiss()
                     }
                 }

@@ -14,7 +14,7 @@ struct ShoppingListApp: App {
     var body: some Scene {
         WindowGroup {
 //            ContentView()
-            ItemList()
+            ContentView()
                 .environmentObject(store)
         }
     }

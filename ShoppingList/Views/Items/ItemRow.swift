@@ -9,14 +9,18 @@ import SwiftUI
 
 struct ItemRow: View {
     @EnvironmentObject var store: StoreFile
-//    @Binding var item: Item
-    let item: Item
     
+    var item: Item
+    var list: ShoppingList
+
     @State private var draftName: String
 
-    init(item: Item) {
-        self.item = item
-        _draftName = State(initialValue: item.name)   // <-- seed the draft
+
+    init(item: Item, in list: ShoppingList) {
+        self.item   = item
+        self.list   = list
+        _draftName = State(initialValue: item.name)
+
     }
     
 //    @State var isClicked: Bool = false
@@ -34,7 +38,7 @@ struct ItemRow: View {
             
             Button {
                 //                isClicked.toggle()
-                store.toggleBought(item)
+                store.toggleBought(item, in: list)
             } label: {
                 Image(systemName: item.isBought ? "circle.fill" : "circle")
                     .foregroundStyle(tint)
@@ -68,7 +72,7 @@ struct ItemRow: View {
             
             if item.isBought {
                 Button {
-                    store.deleteItem(item)
+                    store.deleteItem(item, from: list)
                 } label: {
                     Image(systemName: "trash")
                         .foregroundStyle(tint)
@@ -84,12 +88,17 @@ struct ItemRow: View {
     private func commitRename() {
         let trimmed = draftName.trimmingCharacters(in: .whitespaces)
         guard !trimmed.isEmpty else { draftName = item.name; return }
-        store.rename(item, to: trimmed)
+        store.rename(item, in: list, newName: trimmed)
     }
 }
 
 #Preview {
-    ItemList()
-//        .environment(.colorScheme(.dark))
-//        .environment(StoreFile())
-}
+    // sample data
+    let fishCat = Category(id: "fish", title: "Fish")
+    let item = Item(id: .init(), name: "Salmon", isBought: false, category: "fish")
+    let list = ShoppingList(id: .init(), title: "Demo", items: [item])
+    let store = StoreFile()
+
+    ItemRow(item: item, in: list)
+        .environmentObject(store)
+    }

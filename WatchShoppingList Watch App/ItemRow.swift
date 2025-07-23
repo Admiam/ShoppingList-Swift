@@ -20,7 +20,6 @@ struct ItemRow: View {
         self.item   = item
         self.list   = list
         _draftName = State(initialValue: item.name)
-
     }
     
     enum Field { case item }
@@ -48,15 +47,11 @@ struct ItemRow: View {
                 }
                 .buttonStyle(.plain)
                 .foregroundStyle(item.isBought ? .gray : .primary)
-                TextField("Item",
-                          text: $draftName,
-                          onCommit: commitRename)
-                .focused($focusedField, equals: .item)
-                .disableAutocorrection(true)
-                .textInputAutocapitalization(.none)
-                .font(.system(size: 16, weight: .medium))
-                .foregroundStyle(item.isBought ? .gray : .primary)
                 
+                Text(item.name)
+                    .font(.system(size: 16, weight: .medium))
+                    .foregroundStyle(item.isBought ? .gray : .primary)
+                    .textFieldStyle(.plain)
                 Spacer()
                 
                 if item.isBought {

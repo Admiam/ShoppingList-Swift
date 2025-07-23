@@ -14,19 +14,17 @@ struct ItemList: View {
     @Environment(\.presentationMode) private var presentation
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
                 List {
                     ForEach(store.categories) { category in
                         categorySection(for: category, in: list)
                     }
                 }
-                .navigationTitle(list.title)
-                .listStyle(.insetGrouped)
-                .scrollContentBackground(.hidden)
+                .safeAreaPadding(.top)
+                .padding(.top, 3)
             }
-            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
+                ToolbarItem(placement: .confirmationAction) {
                     Button {
                         showingAddSheet = true
                     } label: {

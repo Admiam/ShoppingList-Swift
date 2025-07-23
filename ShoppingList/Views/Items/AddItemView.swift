@@ -26,11 +26,12 @@ struct AddItemView: View {
                     }
                 }
             }
-            .navigationTitle("Add Item")
+            #if !os(watchOS)
+                .navigationTitle("Add Item")
+            #endif
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Done") {
-//                        print("Adding '\(name)' to category: \(selectedCategory)")
                         print(store.categories)
                         guard
                             let cat = selectedCategory,

@@ -94,14 +94,7 @@ class StoreFile: ObservableObject {
         if let data = try? JSONEncoder().encode(lists) {
             try? data.write(to: fileURL, options: [.atomic, .completeFileProtection])  
         }
-//        let wrapper = ModelData(items: items, categories: categories)
-//        do {
-//            let data = try JSONEncoder().encode(wrapper)
-//            // .atomic - crash and wont leave half-written file
-//            try data.write(to: fileURL, options: [.atomic, .completeFileProtection])
-//        } catch {
-//            print("Save failed: \(error)")
-//        }
+
     }
 }
 

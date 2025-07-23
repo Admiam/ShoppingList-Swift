@@ -75,6 +75,7 @@
 		65245D812E301FEA0089E688 /* Exceptions for "ShoppingList" folder in "WatchShoppingList Watch App" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				Assets.xcassets,
 				Model/Category.swift,
 				Model/Item.swift,
 				Model/ModelData.swift,
